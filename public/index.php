@@ -1,9 +1,7 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
-<?php 
-    require_once __DIR__ . '/../config/connection.php';
-    require_once __DIR__ . '/../templates/head.php'; ?>
+<?php require_once __DIR__ . '/../templates/head.php'; ?>
     <div class="contenedor p-container">
         <?php
             include("./../templates/header.php");

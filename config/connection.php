@@ -3,7 +3,7 @@
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
 
     // Define correctamente BASE_URL
-    $base_url = "http://" . $host . "/QiGong";
+    $base_url = "http://" . $host . "/QiGong/public/";
 
     define('BASE_URL', $base_url);
 
@@ -18,7 +18,3 @@
     if ($conexion->connect_error) {
         die("❌ Error de conexión a la base de datos: " . $conexion->connect_error);
     }
-
-    // Debug: Mostrar BASE_URL para asegurarnos de que es correcta
-    echo "BASE_URL: " . BASE_URL;
-?>

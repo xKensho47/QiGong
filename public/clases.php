@@ -1,7 +1,6 @@
 <?php session_start();
-require_once __DIR__ . '/../config/connection.php';
-require_once __DIR__ . '/../includes/class.php';
-$clases = obtenerClases();
+    require_once __DIR__ . '/../includes/classes.php';
+    $clases = obtenerClases();
 ?>
 
 <!DOCTYPE html>
@@ -20,11 +19,9 @@ $clases = obtenerClases();
                 foreach ($clases as $clase):
                     echo'
                     <div class="clase container card">
-                        <br>
                         <h2 class="card-header subtitle">'; echo htmlspecialchars($clase["title"]); echo'</h2>
                         '; echo $clase["iframe_link"]; echo'
                         <p class="description card-text">'; echo htmlspecialchars($clase["description"]); echo'</p>
-                        <br>
                     </div>';
                 endforeach; echo'
             </section>
