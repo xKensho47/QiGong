@@ -1,22 +1,20 @@
-<?php
-session_start();
+<?php session_start();
 require_once __DIR__ . '/../config/connection.php';
-
-if (!isset($conexion)) {
-    die("❌ Error: No se pudo establecer la conexión a la base de datos.");
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
+    // Verificar que los campos no estén vacíos
     if (empty($username) || empty($password)) {
-        header('Location: ' . $base_url . './login.php?status=empty_fields');
-        exit();
+        $_SESSION['login_status'] = 'empty_fields';
+        // Redirigir a la misma página
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit(); // Salir del script para evitar ejecutar código innecesario
     }
 
-    $q = 
-        "SELECT 
+    // Consulta SQL
+    $q = "SELECT 
             c.id_acc,
             c.id_user,
             c.username, 
@@ -40,29 +38,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute();
     $stmt->store_result();
 
+    // Verificar si el usuario existe
     if ($stmt->num_rows > 0) {
+        // Obtener los resultados
         $stmt->bind_result($id_acc, $id_user, $username_db, $password_hash, $type);
         $stmt->fetch();
 
-        if (!empty($password_hash) && password_verify($password, $password_hash)) {
+        // Verificar si la contraseña ingresada coincide con el hash de la base de datos
+        if (password_verify($password, $password_hash)) {
             // Autenticación exitosa
             $_SESSION['id_acc'] = $id_acc;
             $_SESSION['id_user'] = $id_user;
             $_SESSION['username'] = $username_db;
             $_SESSION['type'] = $type;
 
-            header('Location: ' . $base_url . './index.php');
+            $_SESSION['login_status'] = 'correcto';
+            // Redirigir al dashboard u otra página
+            header('Location: ../public/index.php');
+            exit(); // Salir del script para evitar ejecutar código innecesario
         } else {
-            header('Location: ' . $base_url . './login.php?status=incorrecto');
+            // Contraseña incorrecta
+            $_SESSION['login_status'] = 'incorrecto';
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit(); // Salir del script para evitar ejecutar código innecesario
         }
     } else {
-        header('Location: ' . $base_url . './login.php?status=no_existe');
+        // El usuario no existe
+        $_SESSION['login_status'] = 'no_existe';
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit(); // Salir del script para evitar ejecutar código innecesario
     }
 
-    // Cerrar conexión
     $stmt->close();
     $conexion->close();
-    exit();
-} else {
-    echo "❌ Método de solicitud no válido.";
 }
+?>

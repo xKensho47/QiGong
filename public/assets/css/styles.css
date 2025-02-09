@@ -295,8 +295,6 @@ hr {
     flex-direction: column;
     align-items: center;
     padding: 0;
-
-    border: solid green;
 }
 .secundario {
     opacity: 0;
