@@ -1,4 +1,5 @@
-<?php session_start();
+<?php 
+session_start();
 require_once __DIR__ . '/../config/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -7,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $mail = trim($_POST['mail']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Verificar que todos los campos estén llenos
     if (empty($name) || empty($lastname) || empty($mail) || empty($username) || empty($password)) {
@@ -49,31 +49,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conexion->begin_transaction();
 
     try {
-        // Insertar en la tabla users
-        $query = "INSERT INTO users (name, lastname, mail) VALUES (?, ?, ?)";
-        $stmt = $conexion->prepare($query);
-        $stmt->bind_param("sss", $name, $lastname, $mail);
-        $stmt->execute();
-        $id_user = $stmt->insert_id;
-        $stmt->close();
+        // Insertar en la tabla `users`
+        $id_type = 2; // Usuario normal por defecto
+        $query_users = "INSERT INTO users (name, lastname, mail, id_type) VALUES (?, ?, ?, ?)";
+        $stmt_users = $conexion->prepare($query_users);
+        $stmt_users->bind_param("sssi", $name, $lastname, $mail, $id_type);
+        $stmt_users->execute();
+        
+        // Obtener el ID del usuario insertado
+        $id_user = $stmt_users->insert_id;
+        $stmt_users->close();
 
-        // Insertar en la tabla user_acc
-        $query = "INSERT INTO user_acc (id_user, username, password) VALUES (?, ?, ?)";
-        $stmt = $conexion->prepare($query);
-        $stmt->bind_param("iss", $id_user, $username, $password_hash);
-        $stmt->execute();
-        $stmt->close();
+        // Encriptar la contraseña
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+
+        // Verificar si el hash se generó correctamente
+        if ($password_hash === false) {
+            $_SESSION['registro_mensaje'] = "❌ Error al generar el hash de la contraseña.";
+            header('Location: ../public/register.php');
+            exit();
+        }
+
+        // Insertar en `user_acc`
+        $query_acc = "INSERT INTO user_acc (id_user, username, password) VALUES (?, ?, ?)";
+        $stmt_acc = $conexion->prepare($query_acc);
+        $stmt_acc->bind_param("iss", $id_user, $username, $password_hash);
+        $stmt_acc->execute();
+        $stmt_acc->close();
 
         // Confirmar transacción
         $conexion->commit();
 
-        $_SESSION['registro_mensaje'] = "✅ Registro exitoso.";
-        header('Location: ../public/login.php');
+        $_SESSION['registro_mensaje'] = "✅ Registro exitoso. ¡Ya puedes iniciar sesión!";
+        header('Location: ../public/register.php');
         exit();
     } catch (Exception $e) {
-        // Revertir transacción en caso de error
+        // Revertir en caso de error
         $conexion->rollback();
-        $_SESSION['registro_mensaje'] = "❌ Error en el registro: " . $e->getMessage();
+        $_SESSION['registro_mensaje'] = "❌ Error al registrarse. Inténtalo nuevamente.";
         header('Location: ../public/register.php');
         exit();
     }

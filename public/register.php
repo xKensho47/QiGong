@@ -12,7 +12,7 @@
         <main class="main main-aboutme">
             <article class="article-form">
                 <div class="div-form formulario-reg">
-                    <form class="formulario-login reg" action="<?php echo $base_url; ?>controllers/registerController.php" method="post">
+                    <form class="formulario-login reg" action="<?php echo $base_url; ?>../controllers/registerController.php" method="post">
                         <h1>Registrate</h1>
 
                         <?php mostrarMensajeRegistro(); ?>
