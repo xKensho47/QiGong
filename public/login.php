@@ -20,7 +20,7 @@
                             <h1>Iniciar sesión</h1>';                        
                                 mostrarMensaje();
                             echo ' 
-                            <input class="input-login" name="username" type="text" maxlength="12" placeholder="Ingrese su nombre de usuario" required>
+                            <input class="input-login" type="text" name="username" maxlength="12" placeholder="Ingrese su nombre de usuario" required>
                             <input class="input-login" type="password" name="password" maxlength="12" placeholder="Ingrese su contraseña" required>
                             <input class="boton-login" type="submit" value="Login" name="login">
                             <a class="link-registro" href="register.php">¿Todavía no sos usuario? Registrate.</a>

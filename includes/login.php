@@ -21,7 +21,7 @@
                 break;
         }
         echo '</div>';
-    
-        unset($_SESSION['login_status']); // Borra el mensaje para que no se muestre en la próxima carga
+        //Borra el mensaje para que no se muestre en la próxima carga
+        unset($_SESSION['login_status']);
     }
 ?>

@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $mail = trim($_POST['mail']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    // Encriptar la contraseña
+    $hash = password_hash($password, PASSWORD_ARGON2ID);
 
     // Verificar que todos los campos estén llenos
     if (empty($name) || empty($lastname) || empty($mail) || empty($username) || empty($password)) {
@@ -60,11 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_user = $stmt_users->insert_id;
         $stmt_users->close();
 
-        // Encriptar la contraseña
-        $password_hash = password_hash($password, PASSWORD_BCRYPT);
-
         // Verificar si el hash se generó correctamente
-        if ($password_hash === false) {
+        if ($hash === false) {
             $_SESSION['registro_mensaje'] = "❌ Error al generar el hash de la contraseña.";
             header('Location: ../public/register.php');
             exit();
@@ -73,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Insertar en `user_acc`
         $query_acc = "INSERT INTO user_acc (id_user, username, password) VALUES (?, ?, ?)";
         $stmt_acc = $conexion->prepare($query_acc);
-        $stmt_acc->bind_param("iss", $id_user, $username, $password_hash);
+        $stmt_acc->bind_param("iss", $id_user, $username, $hash);
         $stmt_acc->execute();
         $stmt_acc->close();
 

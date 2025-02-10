@@ -15,19 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Consulta SQL
     $q = "SELECT 
-            c.id_acc,
-            c.id_user,
-            c.username, 
-            c.password,
-            t.type
+            acc.id_acc,
+            acc.id_user,
+            acc.username, 
+            acc.password,
+            ty.type
         FROM 
-            user_acc c
+            user_acc acc
         JOIN  
-            users u ON c.id_user = u.id_user
+            users us ON acc.id_user = us.id_user
         JOIN
-            user_type t ON u.id_type = t.id_type
+            user_type ty ON us.id_type = ty.id_type
         WHERE 
-            c.username = ?";
+            acc.username = ?";
 
     $stmt = $conexion->prepare($q);
     if (!$stmt) {
@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             // Contraseña incorrecta
             $_SESSION['login_status'] = 'incorrecto';
+
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit(); // Salir del script para evitar ejecutar código innecesario
         }
@@ -68,8 +69,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit(); // Salir del script para evitar ejecutar código innecesario
     }
-
-    $stmt->close();
-    $conexion->close();
 }
 ?>
