@@ -20,10 +20,14 @@
                     echo'
                     <div class="clase container card">
                         <h2 class="card-header subtitle">'; echo htmlspecialchars($clase["title"]); echo'</h2>
-                        '; echo $clase["iframe_link"]; echo'
+                        
+                        <iframe class="video" src="'; echo $clase["link"]; echo'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                        
+                        echo'
                         <p class="description card-text">'; echo htmlspecialchars($clase["description"]); echo'</p>
                     </div>';
-                endforeach; echo'
+                endforeach; 
+            echo'
             </section>
         </main>';
         require_once __DIR__ . '/../templates/scripts.php';

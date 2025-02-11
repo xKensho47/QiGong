@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+    include __DIR__ . '/../includes/historia.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <?php require_once __DIR__ . '/../templates/head.php'; ?>
@@ -13,8 +15,9 @@
                 <section id="secundario" class="secundario">
                     <h1 class="title">Historia del Qi Gong</h1>                
                     <div class="principal-content">                    
-                        <div class="historia-container">
-                            <iframe src="https://www.medicinachina.com.ar/CursosyActividades/ClasesdeQigong(ChiKung)paralasalud/HistoriadelQigong.aspx" frameborder="0"></iframe>
+                        <div class="historia-container">';
+                            obtenerHistoria();
+                        echo'
                         </div>
 
                         <!--

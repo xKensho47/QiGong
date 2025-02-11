@@ -13,7 +13,7 @@
                 title, 
                 description, 
                 path_img,
-                iframe_link 
+                link 
             FROM class 
             ORDER BY id_class ASC
             ";
