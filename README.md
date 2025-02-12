@@ -26,7 +26,7 @@ Mediante su cuenta de Administrador, mi amigo Iván, puede compartir sus clases,
 - **GitHub**: Utiliza GitHub para alojar el código y gestionar las contribuciones.
 
 ## Estructura del proyecto
--*Carpetas*: El proyecto está dividido en varias carpetas, cada una con su propio propósito. Entre ellas se encuentran:
+-***Carpetas***: El proyecto está dividido en varias carpetas, cada una con su propio propósito. Entre ellas se encuentran:
     - **config**: Contiene archivos de configuración para la conexión a la base de datos y la URL del sitio web.
     -**controllers**: Contiene archivos de código PHP que se utilizan para la gestión de la base de datos.
     - **public**: Contiene a la carpeta /assets y las páginas principales del sitio web.
@@ -35,7 +35,7 @@ Mediante su cuenta de Administrador, mi amigo Iván, puede compartir sus clases,
     -**includes**: Contiene la lógica que interactúa con la base de datos y con la página web correspondiente.
     -**templates**: Contiene archivos de plantillas HTML (en formato .php) que se utilizan para la estructuración de la página web.
 
--*Archivos*: El proyecto está dividido en varios archivos, cada uno con su propio propósito. Entre ellos se encuentran:
+-***Archivos***: El proyecto está dividido en varios archivos, cada uno con su propio propósito. Entre ellos se encuentran:
     - **index.php**: Es la página de inicio del sitio web.
     - **aboutme.php**: Es la página de información sobre Iván, donde podremos encontrar más información sobre él.
     - **admin_panel.php**: Es la página de administración del sitio web, donde el administrador puede gestionar las clases de QiGong y a los usuarios del sitio.
