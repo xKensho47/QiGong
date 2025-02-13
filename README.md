@@ -13,7 +13,7 @@ Mediante su cuenta de Administrador, mi amigo Iván, puede compartir sus clases,
 - **Multimedia**: Incluye imágenes relacionadas al Chi Kung en varias páginas del sitio web. También se incluyen iframes para las clases compartidas por Iván; y un background animado (video) para la página de inicio.
 - **Animaciones**: Se han incluido animaciones para los elementos de la página, como los botones, modales, etc.
 - **JavaScript**: Se han implementado scripts que controlan la funcionalidad del Hero, los modales y el menú hambruguesa del sitio.
-- **Diseño responsivo**: El diseño está diseñado para ser responsivo, lo que significa que se adapta a diferentes tamaños de pantalla y dispositivos (Mobile y Desktop).
+- **Diseño responsivo**: El diseño está diseñado para ser responsivo, lo que significa que se adapta a diferentes tamaños de pantalla y dispositivos (Mobile y Desktop). (EN PROCESO...)
 - **Estructura de archivos**: El código está organizado en diferentes archivos para facilitar su mantenimiento y manejo.
 
 ## Tecnologías utilizadas
